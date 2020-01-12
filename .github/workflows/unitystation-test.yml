@@ -34,16 +34,11 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           buildMethod: BuildScript.BuildProject
 
-      - name: Checking dirs
-        run: |
-          echo "PWD: $PWD"
-          echo "Searching for an exe..."
-          find / -name "*.exe"
-
       # Upload distributables
       - name: Upload Build
         uses: actions/upload-artifact@v1
         with:
           name: Build
           # path: /home/runner/work/unity-builder/unity-builder/github/workspace/build/
+          # /home/runner/work/unity-builder/unity-builder/build/StandaloneWindows64-2019.2.11f1/StandaloneWindows64.exe
           path: build

@@ -279,15 +279,24 @@ static class BuildScript
 		return null;
 	}
 
+	private static string GetLocationPathName(string buildPath, string buildName, string target)
+	{
+		return $"{buildPath}/{buildName}{GetFileExtension(target)}";
+	}
+
 	public static void BuildProject()
 	{
 		// Gather values from args
 		var options = GetValidatedOptions();
 
+		var buildTarget = options["buildTarget"];
+		var buildPath = options["customBuildPath"];
+		var buildName = options["customBuildName"];
+
 		// Gather values from project
 		var scenes = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(s => s.path).ToArray();
-		var locationPathName = options["customBuildPath"] + GetFileExtension(options["buildTarget"]);
-		var target = (BuildTarget) Enum.Parse(typeof(BuildTarget), options["buildTarget"]);
+		var locationPathName = $"{buildPath}/{buildName}{GetFileExtension(buildTarget)}";
+		var target = (BuildTarget) Enum.Parse(typeof(BuildTarget), buildTarget);
 
 		// Define BuildPlayer Options
 		var buildOptions = new BuildPlayerOptions {
