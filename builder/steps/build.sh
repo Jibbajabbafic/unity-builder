@@ -43,14 +43,14 @@ fi
 BUILDS_FULL_PATH=$GITHUB_WORKSPACE/$BUILDS_PATH
 
 # TODO - Cleanup
-BUILD_FOLDER=$BUILD_TARGET-$UNITY_VERSION
-CURRENT_BUILD_PATH=$BUILDS_PATH/$BUILD_FOLDER
-CURRENT_BUILD_FULL_PATH=$BUILDS_FULL_PATH/$BUILD_FOLDER
+# BUILD_FOLDER=$BUILD_TARGET-$UNITY_VERSION
+# CURRENT_BUILD_PATH=$BUILDS_PATH/$BUILD_FOLDER
+# CURRENT_BUILD_FULL_PATH=$BUILDS_FULL_PATH/$BUILD_FOLDER
 
 # TODO - Determine the file or folder based on BUILD_TARGET
-CUSTOM_BUILD_PATH=$BUILDS_FULL_PATH/$BUILD_FOLDER/$BUILD_TARGET
+CUSTOM_BUILD_PATH=$BUILDS_PATH/$BUILD_TARGET
 
-echo "Using build path \"$CURRENT_BUILD_PATH\"."
+echo "Using build path \"$CUSTOM_BUILD_PATH\"."
 
 #
 # Set the build method, must reference one of:
@@ -100,23 +100,13 @@ EXECUTE_BUILD_METHOD="-executeMethod $BUILD_METHOD"
 
 echo ""
 echo "###########################"
-echo "#      All builds dir     #"
+echo "#     Build directory     #"
 echo "###########################"
 echo ""
 
-echo "Creating \"$BUILDS_FULL_PATH\" if it does not exist."
-mkdir -p $BUILDS_FULL_PATH
-ls -alh $BUILDS_FULL_PATH
-
-echo ""
-echo "###########################"
-echo "#    Current build dir    #"
-echo "###########################"
-echo ""
-
-echo "Creating \"$CURRENT_BUILD_FULL_PATH\" if it does not exist."exist."
-mkdir -p $CURRENT_BUILD_FULL_PATH
-ls -alh $CURRENT_BUILD_FULL_PATH
+echo "Creating \"$CUSTOM_BUILD_PATH\" if it does not exist."
+mkdir -p $CUSTOM_BUILD_PATH
+ls -alh $CUSTOM_BUILD_PATH
 
 echo ""
 echo "###########################"
@@ -164,4 +154,4 @@ echo "#     Build directory     #"
 echo "###########################"
 echo ""
 
-ls -alh $CURRENT_BUILD_FULL_PATH
+ls -alh $CUSTOM_BUILD_PATH
