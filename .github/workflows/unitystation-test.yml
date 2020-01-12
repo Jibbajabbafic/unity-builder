@@ -1,0 +1,49 @@
+name: Unity Test and Build
+on: [push, pull_request]
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+
+  performBuild:
+    name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath:
+          - test-project
+        unityVersion:
+          - 2019.2.11f1
+        targetPlatform:
+          - StandaloneWindows64
+    steps:
+      # Checkout repository (required to test local actions)
+      - name: Checkout repository
+        uses: actions/checkout@v2.0.0
+
+      # Configure builder
+      - name: Build project
+        id: buildStep
+        # uses: webbertakken/unity-builder@
+        uses: ./
+        with:
+          projectPath: ${{ matrix.projectPath }}
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+          buildMethod: BuildScript.BuildProject
+
+      - name: Checking dirs
+        run: |
+          echo "PWD: $PWD"
+          echo "Searching for an exe..."
+          find / -name "*.exe"
+
+      # Upload distributables
+      - name: Upload Build
+        uses: actions/upload-artifact@v1
+        with:
+          name: Build
+          # path: /home/runner/work/unity-builder/unity-builder/github/workspace/build/
+          path: build
