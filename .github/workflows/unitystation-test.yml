@@ -1,4 +1,4 @@
-name: Unity Test and Build
+name: Build Project
 on: [push, pull_request]
 
 env:
@@ -16,7 +16,6 @@ jobs:
           - test-project
         unityVersion:
           - 2019.2.11f1
-          - 2019.2.17f1
         targetPlatform:
           - StandaloneWindows64
           - StandaloneOSX
@@ -35,12 +34,12 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
-          buildName: Unitystation
+          buildName: UnityStation
           buildMethod: BuildScript.BuildProject
 
       # Upload distributables
       - name: Upload Build
         uses: actions/upload-artifact@v1
         with:
-          name: Build
+          name: ${{ matrix.targetPlatform }} Build
           path: build
