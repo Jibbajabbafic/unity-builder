@@ -1,5 +1,5 @@
 name: Unity Test and Build
-on: [push]
+on: [push, pull_request]
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -32,7 +32,7 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
-          # buildMethod: BuildScript.PerformBuild
+          buildMethod: BuildScript.PerformBuild
 
       # - name: Checking dirs
       #   run: |
