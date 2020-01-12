@@ -117,7 +117,8 @@ static class BuildScript
 		//EditorSetup.AndroidSdkRoot = getEnv ("ANDROID_SDK_HOME");
 		//EditorSetup.JdkRoot = getEnv ("JAVA_HOME");
 		//EditorSetup.AndroidNdkRoot = getEnv ("ANDROID_NDK_HOME");
-		var buildScenes = new[] {"Assets/scenes/Lobby.unity", "Assets/scenes/OutpostStation.unity"};
+		// var buildScenes = new[] {"Assets/scenes/Lobby.unity", "Assets/scenes/OutpostStation.unity"};
+		var buildScenes = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(s => s.path).ToArray();
 		var buildTarget = GetBuildTarget();
 		var buildPath = GetBuildPath();
 		var buildName = GetBuildName();
