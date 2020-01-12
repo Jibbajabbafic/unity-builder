@@ -2,6 +2,7 @@
 using System.Linq;
 using System;
 using System.IO;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.Build.Reporting;
 
@@ -268,14 +269,14 @@ static class BuildScript
 		return validatedOptions;
 	}
 
-	private GetFileExtension(string buildTarget)
+	private static string GetFileExtension(string buildTarget)
 	{
 		var target = buildTarget.ToLower();
 
 		if (target.Contains("windows")) return ".exe";
 		if (target.Contains("osx")) return ".app";
 
-		return;
+		return null;
 	}
 
 	public static void BuildProject()
@@ -285,13 +286,13 @@ static class BuildScript
 
 		// Gather values from project
 		var scenes = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(s => s.path).ToArray();
-		var path = options["customBuildPath"] + GetFileExtension(options["buildTarget"]);
+		var locationPathName = options["customBuildPath"] + GetFileExtension(options["buildTarget"]);
 		var target = (BuildTarget) Enum.Parse(typeof(BuildTarget), options["buildTarget"]);
 
 		// Define BuildPlayer Options
 		var buildOptions = new BuildPlayerOptions {
 			scenes = scenes,
-			locationPathName = path,
+			locationPathName = locationPathName,
 			target = target,
 		};
 		ReportOptions(buildOptions);
@@ -317,7 +318,7 @@ static class BuildScript
 			$"###########################{EOL}" +
 			$"{EOL}" +
 			$"Scenes: {options.scenes.ToString()}{EOL}" +
-			$"Path: {options.path.ToString()}{EOL}" +
+			$"Path: {options.locationPathName.ToString()}{EOL}" +
 			$"Target: {options.target.ToString()}{EOL}" +
 			$"{EOL}"
 		);
