@@ -16,8 +16,11 @@ jobs:
           - test-project
         unityVersion:
           - 2019.2.11f1
+          - 2019.2.17f1
         targetPlatform:
           - StandaloneWindows64
+          - StandaloneOSX
+          - StandaloneLinux64
     steps:
       # Checkout repository (required to test local actions)
       - name: Checkout repository
@@ -32,6 +35,7 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
+          buildName: Unitystation
           buildMethod: BuildScript.BuildProject
 
       # Upload distributables
@@ -39,6 +43,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Build
-          # path: /home/runner/work/unity-builder/unity-builder/github/workspace/build/
-          # /home/runner/work/unity-builder/unity-builder/build/StandaloneWindows64-2019.2.11f1/StandaloneWindows64.exe
           path: build
