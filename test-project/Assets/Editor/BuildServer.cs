@@ -279,11 +279,6 @@ static class BuildScript
 		return null;
 	}
 
-	private static string GetLocationPathName(string buildPath, string buildName, string target)
-	{
-		return $"{buildPath}/{buildName}{GetFileExtension(target)}";
-	}
-
 	public static void BuildProject()
 	{
 		// Gather values from args
