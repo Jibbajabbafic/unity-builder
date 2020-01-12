@@ -111,7 +111,7 @@ static class BuildScript
 
 	static void PerformBuild ()
 	{
-		Console.WriteLine (":: Performing build");
+		Console.WriteLine (":: Performing build with these options:");
 		//PlayerSettings.keystorePass = getEnv ("KEYSTORE_PASS", true);
 		//PlayerSettings.keyaliasPass = getEnv ("KEY_ALIAS_PASS", true);
 		//EditorSetup.AndroidSdkRoot = getEnv ("ANDROID_SDK_HOME");
@@ -123,6 +123,10 @@ static class BuildScript
 		var buildPath = GetBuildPath();
 		var buildName = GetBuildName();
 		var fixedBuildPath = GetFixedBuildPath (buildTarget, buildPath, buildName);
+
+		Console.WriteLine ($":: scenes: {buildScenes}");
+		Console.WriteLine ($":: locationPathName: {fixedBuildPath}");
+		Console.WriteLine ($":: target: {buildTarget}");
 
 		BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
 		buildPlayerOptions.scenes = buildScenes;
